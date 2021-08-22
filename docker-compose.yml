@@ -1,0 +1,25 @@
+version: "3.3"
+
+services:
+
+  soulport:
+    build: .
+    image: soulport
+    container_name: soulport
+    # restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+    network_mode: host
+    depends_on:
+      - postgres_db
+    entrypoint: ['python', 'main.py']
+
+  postgres_db:
+    image: postgres
+    # restart: always
+    env_file: .env
+    # volumes:
+    #  - ./data:/var/lib/postgresql/data
+    network_mode: host
